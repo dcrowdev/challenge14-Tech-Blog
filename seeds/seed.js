@@ -11,3 +11,5 @@ const seedAll = async () => {
     await commentSeeds();
     console.log('SEEDING SUCCESSFUL');
 }
+
+seedAll();
