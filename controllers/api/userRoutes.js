@@ -33,22 +33,24 @@ router.post('/login', async (req, res) => {
     if (!dbUserData) {
       res
         .status(400)
-        .json({ message: 'Incorrect username or password. Please try again!' });
+        .json({ message: 'Incorrect username. Please try again!' });
       return;
     }
-
+console.log(req.body.password);
+console.log(dbUserData);
     const validPassword = await dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res
         .status(400)
-        .json({ message: 'Incorrect username or password. Please try again!' });
+        .json({ message: 'Incorrect password. Please try again!' });
       return;
     }
 
     req.session.save(() => {
-      // TODO: Once the user successfully logs in, set up sessions with the 'loggedIn' variable
-
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
+      req.session.logged_in = true;
       res
         .status(200)
         .json({ user: dbUserData, message: 'You are now logged in!' });
