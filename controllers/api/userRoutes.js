@@ -3,18 +3,17 @@ const sequelize = require('../../config/connection')
 const { User, Post, Comment } = require('../../models');
 
 // CREATE new user
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
     const dbUserData = await User.create({
       username: req.body.username,
       password: req.body.password,
     });
-
-    // TODO: Set up sessions with the 'loggedIn' variable
     req.session.save(() => {
-      // TODO: Set the 'loggedIn' session variable to 'true'
-
-      res.status(200).json(dbUserData);
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
+      req.session.logged_in = true;
+      res.status(200).json({ message: 'User successfully created!'});
     });
   } catch (err) {
     console.log(err);

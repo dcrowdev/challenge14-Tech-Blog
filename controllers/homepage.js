@@ -21,11 +21,21 @@ router.get('/post/:id', async (req, res) => {
 });
 
 // login
-router.get('/login', (req, res) => {
+router.get('/login', async (req, res) => {
    if(req.session.logged_in) {
-    res.redirect('/')
+    const postData = await Post.findAll();
+    const posts = postData.map((post) => post.get({ plain: true }))
+    res.render('all-posts', { posts }, {layout: 'dashboard.handlebars'})
    }
    res.render('login');
+});
+
+//signup
+router.get('/users/signup', (req, res) => {
+    if(req.session.logged_in) {
+        res.redirect('/');
+    }
+    res.render('signup');
 });
 
 module.exports = router;
