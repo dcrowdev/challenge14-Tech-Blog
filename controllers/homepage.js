@@ -6,10 +6,7 @@ const { Post, User, Comment } = require('../models');
 router.get('/', async (req, res) => {
     const postData = await Post.findAll();
     const posts = postData.map((post) => post.get({ plain: true }))
-    if(!req.session.logged_in) {
     res.render('all-posts', { posts });
-    } 
-    res.render('all-posts', { posts, layout: 'dashboard' });
 });
 
 //get single post
@@ -28,7 +25,7 @@ router.get('/login', async (req, res) => {
    if(req.session.logged_in) {
     const postData = await Post.findAll();
     const posts = postData.map((post) => post.get({ plain: true }))
-    res.render('all-posts', { posts, layout: 'dashboard' })
+    res.render('all-posts', { posts })
    }
    res.render('login');
 });
@@ -39,6 +36,11 @@ router.get('/users/signup', (req, res) => {
         res.redirect('/');
     }
     res.render('signup');
+});
+
+//logout 
+router.get('/users/logout', async (req, res) => {
+    res.render('logout');
 });
 
 module.exports = router;
