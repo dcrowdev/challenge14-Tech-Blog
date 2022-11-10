@@ -24,9 +24,9 @@ User.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-            // validate: {
-            //   len: [12],
-            // },
+            validate: {
+              len: [3, 12],
+            },
         },
     },
     {

@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
     }
 // console.log(req.body.password);
 console.log(dbUserData);
-    const validPassword = dbUserData.checkPassword(req.body.password);
+    const validPassword = await dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res
