@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const sequelize = require('../../config/connection')
 const { User, Post, Comment } = require('../../models');
 
 // CREATE new user
@@ -36,9 +37,9 @@ router.post('/login', async (req, res) => {
         .json({ message: 'Incorrect username. Please try again!' });
       return;
     }
-console.log(req.body.password);
+// console.log(req.body.password);
 console.log(dbUserData);
-    const validPassword = await dbUserData.checkPassword(req.body.password);
+    const validPassword = dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res
@@ -63,7 +64,6 @@ console.log(dbUserData);
 
 // Logout
 router.post('/logout', (req, res) => {
-  // When the user logs out, the session is destroyed
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
@@ -71,6 +71,16 @@ router.post('/logout', (req, res) => {
   } else {
     res.status(404).end();
   }
+});
+
+//get user by ID
+router.get('/:id', async (req, res) => {
+  const userData = await User.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+  res.status(200).json(userData);
 });
 
 module.exports = router;

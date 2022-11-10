@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
     res.render('all-posts', { posts })
 });
 
+//get single post
 router.get('/post/:id', async (req, res) => {
     const postData = await Post.findOne({
         where: {
