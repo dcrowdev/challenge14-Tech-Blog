@@ -1,0 +1,19 @@
+<div class="container-center">
+    <h2 class="text-center">Your Dashboard</h2>
+    {{#if posts.length}}
+    {{#each posts as |post|}}
+    <div class="card-sm mt-3">
+        <a href="/post/{{id}}">
+        <div class="card-header">
+            {{post_title}}
+        </div></a>
+        <div class="card-body">
+            {{post_body}}
+            <span><a href="dashboard/delete/{{post.id}}">delete</a><span>
+        </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <h4 class="text-center">You do not currently have any posts.</h4>
+    {{/if}}
+</div>
