@@ -36,8 +36,6 @@ router.post('/login', async (req, res) => {
         .json({ message: 'Incorrect username. Please try again!' });
       return;
     }
-// console.log(req.body.password);
-console.log(dbUserData);
     const validPassword = await dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
