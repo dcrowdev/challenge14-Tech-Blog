@@ -3,7 +3,8 @@
     <div class="card mt-3">
         <a href="/post/{{id}}">
         <div class="card-header">
-            {{post_title}}
+            <h2 id="post-title">{{post_title}}</h2>
+            <span id="date-created">{{format_date date_created}}</span>
         </div></a>
         <div class="card-body">
             {{post_body}}
