@@ -5,20 +5,22 @@ const withAuth = require('../utils/auth')
 
 //render all posts
 router.get('/', async (req, res) => {
-    const postData = await Post.findAll();
+    const postData = await Post.findAll({include: [{model: User}]});
     const posts = postData.map((post) => post.get({ plain: true }))
     res.render('all-posts', { posts, logged_in: req.session.logged_in });
 });
 
 //get single post
 router.get('/post/:id', async (req, res) => {
-    const postData = await Post.findOne({
+    const postData = await Post.findOne({ 
+        include: [{model: User}],
         where: {
             id: req.params.id
         }
     });
     const post = postData.get({ plain: true })
-    res.render('single-post', { ...post })
+    console.log({...post})
+    res.render('single-post', post)
 });
 
 // login

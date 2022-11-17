@@ -1,4 +1,8 @@
 <div class="containter-fluid h-1">
+<div class="card mt-3">
 <h2>{{post_title}}</h2>
+<span id="user-created">Created By: {{post.user.username}}</span><br>
+<span id="date-created"><u>{{format_date date_created}}</u></span>
 <p>{{post_body}}</p>
+</div>
 </div>
