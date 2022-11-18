@@ -15,6 +15,24 @@ router.get('/', withAuth, async (req, res) => {
     } catch (err) {
         res.status(500).json(err)
     }
+});
+
+router.get('/edit/:id', withAuth, async (req, res) => {
+    try {
+    const postData = await Post.findOne({
+        include: [{model: User}, {model: Comment}],
+        where: {
+            id: req.params.id
+        }
+    })
+    const post = postData.get({plain: true})
+    console.log(post)
+
+    res.render('edit-post', { ...post, logged_in: req.session.logged_in})
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
 })
 
 
