@@ -13,13 +13,13 @@ router.get('/', async (req, res) => {
 //get single post
 router.get('/post/:id', async (req, res) => {
     const postData = await Post.findOne({ 
-        include: [{model: User}],
+        include: [{model: User}, {model: Comment, include: [{model: User}]}],
         where: {
             id: req.params.id
         }
     });
     const post = postData.get({ plain: true })
-    console.log({...post})
+    console.log(post)
     res.render('single-post', post)
 });
 

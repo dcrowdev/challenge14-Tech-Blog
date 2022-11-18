@@ -1,8 +1,23 @@
 <div class="containter-fluid h-1">
-<div class="card mt-3">
-<h2>{{post_title}}</h2>
-<span id="user-created">Created By: {{post.user.username}}</span><br>
-<span id="date-created"><u>{{format_date date_created}}</u></span>
-<p>{{post_body}}</p>
+    <div class="card mt-3">
+        <h2>{{post_title}}</h2>
+        <span id="user-created">Created By: {{user.username}}</span><br>
+        <span id="date-created"><u>{{format_date date_created}}</u></span>
+        <p>{{post_body}}</p>
+    </div>
+    <h3>Comments</h3>
+    {{#each comments as |comment|}}
+    <h5>Comment by: {{comment.user.username}}</h5>
+    <p>{{comment.comment_body}}</p>
+    {{/each}}
+    <div class="container-fluid">
+    <form>
+        <textarea type="text" id="comment-text" style="margin-top: 5%" placeholder="comment here"></textarea>
+        <button id="comment-btn" style="display:block">Add Comment</button>
+    </form>
+    </div>
 </div>
-</div>
+
+<span style="display:none" id="post-id">{{id}}</span>
+
+<script src="/js/comment.js"></script>

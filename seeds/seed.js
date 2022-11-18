@@ -10,6 +10,8 @@ const seedAll = async () => {
     await postSeeds();
     await commentSeeds();
     console.log('SEEDING SUCCESSFUL');
+
+    process.exit(0);
 }
 
 seedAll();
